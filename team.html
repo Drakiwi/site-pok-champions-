@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Pokémon Champions — Mon équipe</title><link rel="stylesheet" href="styles/style.css"><script src="scypts/script.js" defer></script></head>
+<body>
+  <main class="team-page">
+    <header class="team-header"><a href="index.html" aria-label="Accueil"><img class="logo" src="images/logo.png" alt="Pokémon Champions"></a></header>
+    <a class="back-link" href="index.html">← Accueil</a>
+    <p class="page-help">Survole un type pour voir ses avantages. Clique une attaque pour la modifier, ou une carte pour changer le Pokémon.</p>
+    <section class="team-grid" aria-label="Équipe Pokémon">
+      <article class="pokemon-card" data-slot="0" data-accent="#ffe71c" tabindex="0" role="link" aria-label="Remplacer Raichu"><img class="sprite" src="images/gifs/raichu.gif" alt="Raichu"><div class="pokemon-details"><div class="pokemon-heading"><h1>Raichu</h1><span>@ Raichuite X</span></div><div class="types"><span class="type electric">Electric</span></div><ul class="moves"><li>Fake out</li><li>Volt Switch</li><li>Rising Voltage</li><li>Protect</li></ul></div></article>
+      <article class="pokemon-card" data-slot="1" data-accent="#3bc5ff" tabindex="0" role="link" aria-label="Remplacer Rotom"><img class="sprite" src="images/gifs/rotom.gif" alt="Rotom"><div class="pokemon-details"><div class="pokemon-heading"><h1>Rotom</h1><span>@ Leftovers</span></div><div class="types"><span class="type electric">Electric</span><span class="type water">Water</span></div><ul class="moves"><li>Hydro Pump</li><li>Thunderbolt</li><li>Will-O-Wisp</li><li>Protect</li></ul></div></article>
+      <article class="pokemon-card" data-slot="2" data-accent="#e7dcff" tabindex="0" role="link" aria-label="Remplacer Zapdos"><img class="sprite" src="images/gifs/zapdos.gif" alt="Zapdos"><div class="pokemon-details"><div class="pokemon-heading"><h1>Zapdos</h1><span>@ Life Orb</span></div><div class="types"><span class="type electric">Electric</span><span class="type flying">Flying</span></div><ul class="moves"><li>Hurricane</li><li>Heat wave</li><li>Thunderbolt</li><li>Roost</li></ul></div></article>
+      <article class="pokemon-card" data-slot="3" data-accent="#ff6d3c" tabindex="0" role="link" aria-label="Remplacer Incineroar"><img class="sprite" src="images/gifs/incineroar.gif" alt="Incineroar"><div class="pokemon-details"><div class="pokemon-heading"><h1>Incineroar</h1><span>@ Assault Vest</span></div><div class="types"><span class="type fire">Fire</span><span class="type dark">Dark</span></div><ul class="moves"><li>Fake out</li><li>Knock off</li><li>Flare blitz</li><li>Parting shot</li></ul></div></article>
+      <article class="pokemon-card" data-slot="4" data-accent="#b46cff" tabindex="0" role="link" aria-label="Remplacer Garchomp"><img class="sprite" src="images/gifs/garchomp.gif" alt="Garchomp"><div class="pokemon-details"><div class="pokemon-heading"><h1>Garchomp</h1><span>@ Life Orb</span></div><div class="types"><span class="type ground">Ground</span><span class="type dragon">Dragon</span></div><ul class="moves"><li>Stomping tantrum</li><li>Rock slide</li><li>Dragon claw</li><li>Protect</li></ul></div></article>
+      <article class="pokemon-card" data-slot="5" data-accent="#52d7ff" tabindex="0" role="link" aria-label="Remplacer Basculegion"><img class="sprite" src="images/gifs/basculegion.gif" alt="Basculegion"><div class="pokemon-details"><div class="pokemon-heading"><h1>Basculegion</h1><span>@ Choice Scarf</span></div><div class="types"><span class="type ghost">Ghost</span><span class="type water">Water</span></div><ul class="moves"><li>Last respects</li><li>Aqua Jet</li><li>Wave crash</li><li>Protect</li></ul></div></article>
+    </section>
+  </main>
+  <div class="type-tooltip" id="type-tooltip" role="tooltip" aria-hidden="true"></div>
+</body></html>
