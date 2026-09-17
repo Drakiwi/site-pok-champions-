@@ -64,6 +64,7 @@ body::before { position: fixed; z-index: -1; inset: 0; content: ""; pointer-even
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 
 .modal-heading label { display: block; margin-top: 5px; font-size: 12px; }
+<<<<<<< HEAD
 
 /* Finition visuelle : mêmes fonctions, interface plus lumineuse et structurée. */
 body { background-attachment: fixed; background-color: #12072b; }
@@ -81,3 +82,5 @@ body::after { position: fixed; z-index: -1; inset: 0; content: ""; pointer-event
 .type-tooltip { width: min(260px, calc(100vw - 24px)); padding: 13px 14px; border-color: rgba(255,255,255,.42); border-radius: 12px; background: linear-gradient(145deg, rgba(39,22,84,.98), rgba(13,7,42,.98)); box-shadow: 0 18px 35px rgba(0,0,0,.45), 0 0 22px rgba(178,119,255,.23); }.type-tooltip strong { padding-bottom: 7px; border-bottom: 1px solid rgba(255,255,255,.14); color: #ffe986; font-size: 15px; }.type-tooltip span { margin-top: 8px; }.type-tooltip b { display: block; color: #cfdcff; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }.type-tooltip i { display: block; margin-top: 2px; color: #fff; font-size: 12px; font-style: normal; font-weight: 700; }
 .replacement-card, .home-features article { border-color: rgba(255,255,255,.22); background: linear-gradient(145deg, rgba(32,20,81,.82), rgba(12,7,44,.65)); backdrop-filter: blur(7px); }.replacement-card:hover { box-shadow: 0 14px 30px rgba(0,0,0,.3), 0 0 20px rgba(255,233,134,.22); }
 @media (max-width: 600px) { .page-help { border-radius: 12px; }.type-tooltip { font-size: 11px; } }
+=======
+>>>>>>> cff1d8f4c5a8a51d08a6c4dee9d2c297a5ecba65
