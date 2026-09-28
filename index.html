@@ -1,1 +1,163 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Pokémon Champions</title><link rel="stylesheet" href="styles/style.css"></head><body class="home-body"><main class="home-page"><header class="home-header"><img class="home-logo" src="images/logo.png" alt="Pokémon Champions"><span>TEAM BUILDER</span></header><section class="hero" aria-labelledby="hero-title"><p class="eyebrow">BUILD YOUR TEAM</p><h1 id="hero-title">Your team, your rules.</h1><p>Build a team of six Pokémon, choose their moves, and learn their type matchups.</p><a class="primary-button" href="team.html">View my team <span>→</span></a></section><section class="home-features" aria-label="Features"><article><span>⚡</span><h2>Types</h2><p>Hover a type to see its weaknesses, resistances, and advantages.</p></article><article><span>⚔</span><h2>Moves</h2><p>Every move has its official description and battle data.</p></article><article><span>⌕</span><h2>Search</h2><p>Filter Pokémon by name or type.</p></article></section></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokémon Champions — Team Builder</title>
+<meta name="description" content="Build a team of six Pokémon, pick their moves, set EVs and natures, and learn every type matchup.">
+<link rel="stylesheet" href="styles/style.css?v=8">
+<link rel="stylesheet" href="styles/home.css?v=8">
+<script>document.documentElement.dataset.theme=localStorage.getItem("pokemon-theme")||"dark";</script>
+<script src="scypts/theme.js?v=8" defer></script>
+<script src="scypts/home.js?v=8" defer></script>
+</head>
+<body class="home-body">
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode"></button>
+
+<section class="hero-scene" id="heroScene">
+  <div class="scene-glow" aria-hidden="true"></div>
+  <div class="scene-grid" aria-hidden="true"></div>
+  <div class="scene-sprites" id="sceneSprites" aria-hidden="true">
+    <img class="sprite-float s1" src="images/gifs/charizard.gif" alt="">
+    <img class="sprite-float s2" src="images/gifs/zapdos.gif" alt="">
+    <img class="sprite-float s3" src="images/gifs/garchomp.gif" alt="">
+    <img class="sprite-float s4" src="images/gifs/raichu.gif" alt="">
+    <img class="sprite-float s5" src="images/gifs/sylveon.gif" alt="">
+    <img class="sprite-float s6" src="images/gifs/gyarados.gif" alt="">
+    <img class="sprite-float s7" src="images/gifs/milotic.gif" alt="">
+    <img class="sprite-float s8" src="images/gifs/tyranitar.gif" alt="">
+    <img class="sprite-float s9" src="images/gifs/indeedee.gif" alt="">
+    <img class="sprite-float s10" src="images/gifs/gholdengo.gif" alt="">
+  </div>
+
+  <header class="scene-bar">
+    <a class="brand" href="index.html">
+      <img class="logo" src="images/logo.png" alt="Pokémon Champions">
+      <span class="brand-text"><b>Team Builder</b><small>Six slots, one Mega</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="team.html">My Team</a>
+      <a href="replacement.html?slot=0">Replace</a>
+    </nav>
+  </header>
+
+  <div class="hero-content">
+    <p class="hero-kicker"><i></i>Pokémon Champions<i></i></p>
+    <h1 class="hero-title">
+      <span class="line"><span>Build your</span></span>
+      <span class="line"><span class="grad">dream team</span></span>
+    </h1>
+    <p class="hero-lead">Six slots. One Mega. Every move, stat, nature and type matchup in one place.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="team.html">View my team <span>→</span></a>
+      <a class="btn-ghost" href="replacement.html?slot=0">Pick a Pokémon</a>
+    </div>
+  </div>
+
+  <a class="scroll-hint" href="#highlights" aria-label="Scroll to highlights"><i></i>Scroll</a>
+</section>
+
+<section class="section" id="highlights">
+  <p class="section-kicker reveal">Highlights</p>
+  <h2 class="section-title reveal">Everything you need to plan a set</h2>
+  <div class="stat-strip reveal">
+    <div class="stat-tile"><b data-count="72">0</b><span>Pokémon</span></div>
+    <div class="stat-tile"><b data-count="18">0</b><span>Types</span></div>
+    <div class="stat-tile"><b data-count="200" data-suffix="+">0</b><span>Moves</span></div>
+    <div class="stat-tile"><b data-count="510">0</b><span>EVs to spread</span></div>
+  </div>
+</section>
+
+<section class="section section-roster">
+  <p class="section-kicker reveal">Starter roster</p>
+  <h2 class="section-title reveal">Six slots, ready to fill</h2>
+  <div class="roster reveal">
+    <a class="roster-card" href="team.html">
+      <img src="images/gifs/mega_raichuX.gif" alt="Mega Raichu X">
+      <b>Mega Raichu X</b>
+      <small>Electric · Surge Surfer</small>
+    </a>
+    <a class="roster-card" href="team.html">
+      <img src="images/gifs/rotom.gif" alt="Rotom">
+      <b>Rotom</b>
+      <small>Electric / Water · Levitate</small>
+    </a>
+    <a class="roster-card" href="team.html">
+      <img src="images/gifs/zapdos.gif" alt="Zapdos">
+      <b>Zapdos</b>
+      <small>Electric / Flying · Pressure</small>
+    </a>
+    <a class="roster-card" href="team.html">
+      <img src="images/gifs/incineroar.gif" alt="Incineroar">
+      <b>Incineroar</b>
+      <small>Fire / Dark · Intimidate</small>
+    </a>
+    <a class="roster-card" href="team.html">
+      <img src="images/gifs/mega_garchomp.gif" alt="Mega Garchomp">
+      <b>Mega Garchomp</b>
+      <small>Dragon / Ground · Rough Skin</small>
+    </a>
+    <a class="roster-card" href="team.html">
+      <img src="images/gifs/basculegion.gif" alt="Basculegion">
+      <b>Basculegion</b>
+      <small>Water · Adaptability</small>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <p class="section-kicker reveal">Features</p>
+  <h2 class="section-title reveal">Plan it, tune it, ship it</h2>
+  <div class="feature-grid">
+    <article class="feature-card reveal">
+      <span class="feature-icon">⚡</span>
+      <h3>Type matchups</h3>
+      <p>Hover any type to see its weaknesses, resistances and what it hits hard.</p>
+      <ul class="type-row">
+        <li class="type electric">Elec</li>
+        <li class="type water">Wat</li>
+        <li class="type grass">Gra</li>
+        <li class="type dark">Drk</li>
+        <li class="type steel">Stl</li>
+      </ul>
+    </article>
+    <article class="feature-card reveal">
+      <span class="feature-icon">⚔</span>
+      <h3>Real move data</h3>
+      <p>Every move shows its official power, type, accuracy and PP, straight from the PokéAPI.</p>
+      <ul class="mini-moves">
+        <li><span class="dot" style="--c:#f5c400"></span>Earthquake<b>100</b></li>
+        <li><span class="dot" style="--c:#7dd3fc"></span>Hydro Pump<b>110</b></li>
+      </ul>
+    </article>
+    <article class="feature-card reveal">
+      <span class="feature-icon">◈</span>
+      <h3>BUILD system</h3>
+      <p>Spread 510 EVs, pick a nature and watch the real stat totals update live on every card.</p>
+      <ul class="mini-stats">
+        <li><span>HP</span><b>171</b><i class="ev"></i></li>
+        <li><span>ATK</span><b>206</b><i class="nat"></i></li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta-card reveal">
+    <div class="cta-sprites" aria-hidden="true">
+      <img src="images/gifs/mega_garchomp.gif" alt="">
+      <img src="images/gifs/mega_charizardY.gif" alt="">
+    </div>
+    <h2>Ready to build?</h2>
+    <p>Open your team, set the last Mega slot and give every Pokémon a nature.</p>
+    <a class="btn-primary" href="team.html">Go to my team <span>→</span></a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <img class="footer-logo" src="images/logo.png" alt="Pokémon Champions">
+  <p>Fan project. Data from PokéAPI. Not affiliated with Nintendo, Game Freak or The Pokémon Company.</p>
+</footer>
+</body>
+</html>

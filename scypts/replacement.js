@@ -31,7 +31,27 @@ const grid = document.querySelector("#replacement-grid");
 const search = document.querySelector("#pokemon-search");
 const resultCount = document.querySelector("#result-count");
 const normalize = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-function renderOptions(query = "") { const term = normalize(query.trim()); const filtered = options.filter((pokemon) => !term || normalize(`${pokemon.name} ${pokemon.types.map((type) => `${type} ${typeNames[type]} ${typeSearchTerms[type]}`).join(" ")}`).includes(term)); grid.innerHTML = filtered.map((pokemon) => `<button class="replacement-card" data-option="${options.indexOf(pokemon)}"><img src="${pokemon.image}" alt="${pokemon.name}"><span>${pokemon.name}</span><small>${pokemon.types.map((type) => typeNames[type]).join(" / ")}</small></button>`).join(""); resultCount.textContent = `${filtered.length} Pokémon found`; }
+const isMega = (name) => /^(mega|méga)[- ]/i.test(name);
+
+function renderOptions(query = "") {
+  const term = normalize(query.trim());
+  const team = JSON.parse(localStorage.getItem("pokemon-team") || "null") || [...Array(6)].map(() => null);
+  const hasMegaInTeam = team.some((p, i) => i !== slot && p && isMega(p.name));
+  const filtered = options.filter((pokemon) => {
+    if (isMega(pokemon.name) && hasMegaInTeam) return false;
+    if (!term) return true;
+    return normalize(`${pokemon.name} ${pokemon.types.map((type) => `${type} ${typeNames[type]} ${typeSearchTerms[type]}`).join(" ")}`).includes(term);
+  });
+  grid.innerHTML = filtered.map((pokemon) => `<button class="replacement-card" data-option="${options.indexOf(pokemon)}"><img src="${pokemon.image}" alt="${pokemon.name}"><span>${pokemon.name}</span><small>${pokemon.types.map((type) => typeNames[type]).join(" / ")}</small></button>`).join("");
+  resultCount.textContent = `${filtered.length} Pokémon found`;
+  if (hasMegaInTeam) {
+    resultCount.textContent += " · Mega already in team";
+  }
+  const megaEl = document.querySelector("[data-mega-count]");
+  const teamEl = document.querySelector("[data-team-count]");
+  if (megaEl) megaEl.textContent = team.filter((p) => p && isMega(p.name)).length;
+  if (teamEl) teamEl.textContent = team.filter(Boolean).length;
+}
 renderOptions();
 search.addEventListener("input", () => renderOptions(search.value));
 grid.addEventListener("click", (event) => { const button = event.target.closest(".replacement-card"); if (!button || !Number.isInteger(slot) || slot < 0 || slot > 5) return; const team = JSON.parse(localStorage.getItem("pokemon-team") || "null") || [...Array(6)].map(() => null); team[slot] = options[Number(button.dataset.option)]; localStorage.setItem("pokemon-team", JSON.stringify(team)); window.location.href = "team.html"; });
