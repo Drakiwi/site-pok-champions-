@@ -785,6 +785,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
   overflow: hidden;
   transition: all var(--transition);
   cursor: pointer;
+  touch-action: pan-y;
 }
 
 .pokemon-card::before {
@@ -1011,8 +1012,13 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
   transition: all var(--transition);
 }
+
+.details-button:active { transform: scale(.97); }
 
 .details-button:hover {
   background: var(--accent);
@@ -1022,9 +1028,27 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
 }
 
 /* === Modal === */
+.modal-overlay {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  overscroll-behavior: contain;
+  /* Visible by default: never gate visibility behind an animation or a
+     class added in rAF, both of which can be suspended on some devices. */
+  opacity: 1;
+}
+
+.modal-overlay[hidden] { display: none; }
+
 .pokemon-modal {
-  width: min(880px, calc(100vw - 24px));
-  max-height: min(88vh, 850px);
+  position: relative;
+  width: min(880px, 100%);
+  max-height: min(88svh, 850px);
   padding: 32px;
   border: 1px solid var(--border-hover);
   border-radius: 24px;
@@ -1032,19 +1056,24 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
   color: var(--text);
   box-shadow: var(--shadow-lg);
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateY(0) scale(1);
+  transition: transform .25s cubic-bezier(.2, .8, .2, 1);
 }
 
-.pokemon-modal::backdrop {
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
-}
+/* Entrance motion is an enhancement only: the sheet is already in its
+   final position if the transition never runs. */
+.modal-overlay.is-anim .pokemon-modal { transform: translateY(18px) scale(.97); }
+
+body.modal-open { overflow: hidden; }
 
 .modal-close {
   position: absolute;
+  z-index: 2;
   top: 20px;
   right: 20px;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
@@ -1053,6 +1082,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
   color: var(--text);
   font-size: 20px;
   cursor: pointer;
+  touch-action: manipulation;
   transition: all var(--transition);
 }
 
@@ -1664,17 +1694,21 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
   .stat-tags em { font-size: 8.5px; }
 
   /* --- Modal becomes a bottom sheet --- */
-  .pokemon-modal {
-    width: 100%;
-    max-width: 100%;
-    max-height: 92svh;
-    margin: auto 0 0;
-    padding: 22px 16px calc(22px + env(safe-area-inset-bottom));
-    border-radius: 20px 20px 0 0;
-    border-bottom: 0;
+  .modal-overlay {
+    place-items: end center;
+    padding: 0;
   }
 
-  .pokemon-modal::backdrop { backdrop-filter: blur(4px); }
+  .pokemon-modal {
+    width: 100%;
+    max-height: 92svh;
+    padding: 22px 16px calc(28px + env(safe-area-inset-bottom, 0px));
+    border-radius: 20px 20px 0 0;
+    border-bottom: 0;
+    transform: translateY(0);
+  }
+
+  .modal-overlay.is-anim .pokemon-modal { transform: translateY(100%); }
 
   .modal-close {
     top: 12px;
