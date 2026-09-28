@@ -1211,6 +1211,60 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
   color: var(--text);
 }
 
+/* === Loading state === */
+.modal-loading {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  min-height: 190px;
+  padding: 26px 10px;
+  text-align: center;
+}
+
+.modal-loading p {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.modal-loading small {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.load-bar {
+  width: min(100%, 280px);
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  overflow: hidden;
+}
+
+.load-bar i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  transition: width .25s ease;
+}
+
+.modal-error { display: grid; justify-items: center; gap: 12px; padding: 26px 10px; text-align: center; }
+.modal-error h2 { margin: 0; font-size: 20px; }
+.modal-error p { margin: 0 0 6px; color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+
 .offline-note {
   padding: 14px 16px;
   border: 1px solid rgba(255, 209, 102, .3);
@@ -1628,6 +1682,9 @@ h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
     width: 44px;
     height: 44px;
   }
+
+  .modal-loading { min-height: 150px; gap: 12px; }
+  .spinner { width: 36px; height: 36px; }
 
   .modal-heading { gap: 12px; padding-bottom: 16px; margin-bottom: 20px; }
   .modal-heading img { width: 64px; height: 56px; }
