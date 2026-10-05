@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Générateur d'équipe — Pokémon Champions</title>
+<meta name="description" content="Construit une équipe de 6 à partir des vraies données du format Champions : taux d'usage, coups joués, objets et synergies.">
+<link rel="stylesheet" href="styles/style.css?v=23">
+<link rel="stylesheet" href="styles/sets.css?v=23">
+<link rel="stylesheet" href="styles/ai.css?v=23">
+<script>document.documentElement.dataset.theme=localStorage.getItem("pokemon-theme")||"dark";</script>
+<script src="scypts/theme.js?v=23" defer></script>
+<script src="scypts/typechart.js?v=23" defer></script>
+<script src="scypts/roster.js?v=23" defer></script>
+<script src="scypts/grounding.js?v=23" defer></script>
+<script src="scypts/sets.js?v=23" defer></script>
+<script src="scypts/sprites.js?v=23" defer></script>
+<script src="scypts/engine.js?v=23" defer></script>
+<script src="scypts/generator.js?v=23" defer></script>
+<script src="scypts/ai.js?v=23" defer></script>
+<script src="scypts/chat.js?v=23" defer></script>
+</head>
+<body>
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode"></button>
+
+<header class="site-header">
+  <div class="header-art" aria-hidden="true">
+    <img class="art" src="images/gifs/garchomp.gif" alt="">
+    <img class="art" src="images/gifs/kingambit.gif" alt="">
+    <img class="art" src="images/gifs/zeraora.gif" alt="">
+    <img class="art" src="images/gifs/magearna.gif" alt="">
+  </div>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img class="logo" src="images/logo.png" alt="Pokémon Champions">
+      <span class="brand-text"><b>Team Builder</b><small>Six slots, one Mega</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="team.html">My Team</a>
+      <a href="replacement.html?slot=0">Replace</a>
+      <a href="sets.html">Sets</a>
+      <a href="ai.html" aria-current="page">Coach</a>
+    </nav>
+  </div>
+  <div class="header-bar">
+    <span><b id="roster-count">0</b> Pokémon indexés</span>
+    <i class="dot"></i>
+    <span>Données réelles du format Champions</span>
+  </div>
+</header>
+
+<main class="ai-page">
+
+  <aside class="ai-side">
+    <h1 class="ai-title">Générateur d'équipe</h1>
+    <p class="ai-lead">Construit une équipe de 6 à partir des vraies données du format Champions : taux d'usage, coups réellement joués, objets, talents et synergies. Aucun appel réseau, aucune clé.</p>
+
+    <section class="key-panel">
+      <h2>Style d'équipe</h2>
+      <div class="style-list" id="style-list"></div>
+    </section>
+
+    <section class="side-panel">
+      <h2>Effort de recherche</h2>
+      <div class="effort-list" id="effort-list"></div>
+      <p class="side-note" id="effort-note"></p>
+    </section>
+
+    <section class="side-panel">
+      <h2>Menace à gérer <small>(optionnel)</small></h2>
+      <p class="side-note">Laisse vide pour couvrir les menaces réelles du format. Sinon, nomme un type ou un Pokémon.</p>
+      <input id="threat-input" class="field" type="text" list="threat-options" placeholder="ex. dragon, Archaludon, Rillaboom" autocomplete="off">
+      <datalist id="threat-options"></datalist>
+      <p class="field-status" id="threat-status"></p>
+    </section>
+
+    <section class="side-panel">
+      <h2>Pokémon imposés <small>(optionnel)</small></h2>
+      <p class="side-note">Ajoute jusqu'à 6 membres qui doivent figurer dans l'équipe. Sépare-les par des virgules.</p>
+      <input id="required-input" class="field" type="text" placeholder="ex. Tyranitar-Mega, Kingambit" autocomplete="off">
+      <p class="field-status" id="required-status"></p>
+    </section>
+
+    <section class="side-panel">
+      <h2>Base de connaissances</h2>
+      <p class="side-note" id="kb-note"></p>
+    </section>
+  </aside>
+
+  <section class="ai-main">
+    <div class="gen-toolbar">
+      <button id="generate" class="gen-button" type="button">
+        <span class="gen-label">Générer une équipe</span>
+      </button>
+      <button id="regenerate" class="gen-button is-ghost" type="button" disabled>Regénérer</button>
+      <button id="discard" class="gen-button is-ghost" type="button" disabled>Effacer</button>
+    </div>
+
+    <div id="gen-output" class="gen-output" aria-live="polite">
+      <div class="gen-empty">
+        <h2>Aucune équipe générée</h2>
+        <p>Choisis un style, un effort de recherche, puis lance la génération. Tu peux aussi nommer une menace à contrer.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<section class="ai-page ai-page-secondary">
+  <aside class="ai-side">
+    <h1 class="ai-title">Analyse et remplacement</h1>
+    <p class="ai-lead">Le moteur peut aussi lire ton équipe enregistrée et te proposer un remplaçant pour un slot précis.</p>
+
+    <section class="side-panel">
+      <h2>Analyser mon équipe</h2>
+      <p class="side-note" id="team-status">—</p>
+      <button id="analyse-team" class="key-button" type="button">Analyser mon équipe</button>
+      <div id="team-verdict" class="verdict"></div>
+    </section>
+
+    <section class="side-panel">
+      <h2>Remplacer un slot</h2>
+      <label class="field-label" for="slot-select">Slot à remplacer</label>
+      <select id="slot-select" class="field"></select>
+      <button id="suggest-swap" class="key-button" type="button">Proposer un remplaçant</button>
+      <div id="swap-output" class="verdict"></div>
+    </section>
+  </aside>
+
+  <section class="ai-main">
+    <h2 class="chat-heading">Coach conversationnel <small>optionnel</small></h2>
+    <p class="side-note">Le générateur ci-dessus fonctionne sans rien. Si tu colles une clé Anthropic, le coach peut en plus discuter d'une équipe, expliquer un set ou répondre en français.</p>
+
+    <section class="key-panel">
+      <h2>Clé API</h2>
+      <p>Le site est hébergé en statique : il n'y a pas de serveur pour cacher une clé. Colle ta clé Anthropic, elle reste dans ce navigateur et n'est envoyée qu'à Anthropic.</p>
+      <input id="key-input" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+      <div class="key-actions">
+        <button id="key-save" class="key-button" type="button">Enregistrer</button>
+        <button id="key-clear" class="key-button is-ghost" type="button">Effacer</button>
+      </div>
+      <p class="key-status" id="key-status"></p>
+    </section>
+
+    <div class="chat-log" id="chat-log" aria-live="polite" aria-label="Conversation"></div>
+
+    <div class="chat-suggest-row" id="chat-suggest-row"></div>
+
+    <form class="chat-input" id="chat-form">
+      <textarea id="chat-text" rows="1" placeholder="Demande une équipe, un set, un counter…" autocomplete="off"></textarea>
+      <button type="submit" id="chat-send" aria-label="Envoyer">
+        <span class="send-label">Envoyer</span>
+      </button>
+      <button type="button" id="chat-stop" class="is-hidden" aria-label="Arrêter">Stop</button>
+    </form>
+    <p class="chat-note">Le coach peut se tromper. Vérifie toujours les coups avant de les mettre en jeu.</p>
+  </section>
+</section>
+</body>
+</html>

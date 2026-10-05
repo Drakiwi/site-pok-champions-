@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Sets — Pokémon Champions</title>
+<meta name="description" content="A curated competitive set for every Pokémon: moves, ability, item, nature and EV spread.">
+<link rel="stylesheet" href="styles/style.css?v=21">
+<link rel="stylesheet" href="styles/sets.css?v=21">
+<script>document.documentElement.dataset.theme=localStorage.getItem("pokemon-theme")||"dark";</script>
+<script src="scypts/theme.js?v=21" defer></script>
+<script src="scypts/typechart.js?v=21" defer></script>
+<script src="scypts/sprites.js?v=21" defer></script>
+<script src="scypts/sets.js?v=21" defer></script>
+</head>
+<body>
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode"></button>
+
+<header class="site-header">
+  <div class="header-art" aria-hidden="true">
+    <img class="art" src="images/gifs/garchomp.gif" alt="">
+    <img class="art" src="images/gifs/zapdos.gif" alt="">
+    <img class="art" src="images/gifs/kingambit.gif" alt="">
+    <img class="art" src="images/gifs/gholdengo.gif" alt="">
+    <img class="art" src="images/gifs/tyranitar.gif" alt="">
+  </div>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img class="logo" src="images/logo.png" alt="Pokémon Champions">
+      <span class="brand-text"><b>Team Builder</b><small>Six slots, one Mega</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="team.html">My Team</a>
+      <a href="replacement.html?slot=0">Replace</a>
+      <a href="sets.html" aria-current="page">Sets</a>
+      <a href="ai.html">Coach</a>
+    </nav>
+  </div>
+  <div class="header-bar">
+    <span>Curated competitive sets</span>
+    <i class="dot"></i>
+    <span><b id="sets-count">0</b> available</span>
+    <i class="dot"></i>
+    <span>Load one straight into a slot</span>
+  </div>
+</header>
+
+<main class="sets-page">
+  <p class="section-kicker">Team help</p>
+  <h1 class="sets-title">The best set for every Pokémon</h1>
+  <p class="sets-lead">Pick a Pokémon to see the moves, ability, item, nature and EV spread worth bringing. Load it into a slot and it is already on your team.</p>
+
+  <div class="sets-controls">
+    <label class="search-box" for="sets-search">
+      <span>⌕</span>
+      <input id="sets-search" type="search" placeholder="Search a Pokémon, type or role" autocomplete="off">
+    </label>
+    <label class="type-filter" for="sets-filter">
+      <span class="filter-label">Type</span>
+      <select id="sets-filter">
+        <option value="all">All types</option>
+        <option value="normal">Normal</option>
+        <option value="fire">Fire</option>
+        <option value="water">Water</option>
+        <option value="electric">Electric</option>
+        <option value="grass">Grass</option>
+        <option value="ice">Ice</option>
+        <option value="fighting">Fighting</option>
+        <option value="poison">Poison</option>
+        <option value="ground">Ground</option>
+        <option value="flying">Flying</option>
+        <option value="psychic">Psychic</option>
+        <option value="bug">Bug</option>
+        <option value="rock">Rock</option>
+        <option value="ghost">Ghost</option>
+        <option value="dragon">Dragon</option>
+        <option value="dark">Dark</option>
+        <option value="steel">Steel</option>
+        <option value="fairy">Fairy</option>
+      </select>
+    </label>
+  </div>
+
+  <section class="sets-grid" id="sets-grid" aria-label="Competitive sets"></section>
+
+  <p class="sets-empty" id="sets-empty" hidden>No set matches that search.</p>
+</main>
+
+<footer class="site-footer">
+  <img class="footer-logo" src="images/logo.png" alt="Pokémon Champions">
+  <p>Sets are a starting point, not gospel. Damage rolls, team synergy and your format all matter. Fan project. Not affiliated with Nintendo, Game Freak or The Pokémon Company.</p>
+</footer>
+</body>
+</html>

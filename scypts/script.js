@@ -17,8 +17,11 @@ const fallbackPower={"air-slash":75,"armor-cannon":120,"aura-sphere":80,"body-pr
 const itemChoices=["No item","Assault Vest","Booster Energy","Choice Band","Choice Scarf","Choice Specs","Focus Sash","Leftovers","Life Orb","Light Clay","Lum Berry","Miracle Seed","Mystic Water","Sitrus Berry","Weakness Policy"];
 const modal=document.querySelector("#pokemon-modal"),content=document.querySelector("#modal-content"),tooltip=document.querySelector("#type-tooltip"),normalise=value=>value.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase(),pretty=name=>name.split("-").map(word=>word[0]?.toUpperCase()+word.slice(1)).join(" ");
 const megaAbilities={"garchomp":"Rough Skin","garchomp z":"Rough Skin","salamence":"Aerilate","raichu x":"Surge Surfer","raichu y":"Tinted Lens","charizard y":"Drought","gardevoir":"Pixilate","lucario":"Justified","lucario z":"Adaptability","absol":"Magic Guard","absol z":"Magic Guard","tyranitar":"Sand Stream","golisopod":"Shield Dust","floette":"Symbiosis","delphox":"Blaze","darkrai":"Prankster","heatran":"Heavy Metal","dragalge":"Berserk","eelektross":"Levitate","glalie":"Refrigerate","chandelure":"Flash Fire","starmie":"Analytic","magearna":"Soul-Heart","meganium":"Overgrow","scolipede":"Shield Dust","staraptor":"Intimidate","zeraora":"Volt Absorb","baxcalibur":"Thermal Exchange","clefable":"Unaware","gyarados":"Mold Breaker"};
-const baseForm=name=>String(name||"").replace(/^(mega|méga)[- ]/i,"").trim();
-const isMega=pokemon=>!!pokemon&&typeof pokemon==="object"&&/^(mega|méga)[- ]/i.test(pokemon.name||"");
+const baseForm=name=>String(name||"").replace(/^(mega|méga)[- ]/i,"").replace(/[- ]?mega(-[xyz])?$/i,"").trim();
+/* Mega forms are named two ways across this project: the picker writes
+   "Mega Garchomp" while the verified roster writes "Garchomp-Mega". Both are
+   real Megas, so both spellings have to count. */
+const isMega=pokemon=>!!pokemon&&typeof pokemon==="object"&&( /^(mega|méga)[- ]/i.test(pokemon.name||"") || /-mega(-[xyz])?$/i.test(pokemon.name||"") );
 const megaGem=pokemon=>`Mega Gem: ${baseForm(pokemon.name)}`;
 const megaAbility=pokemon=>megaAbilities[baseForm(pokemon.name).toLowerCase()]||null;
 const enforceMegaGem=pokemon=>{if(!isMega(pokemon))return pokemon;pokemon.item=`@ ${megaGem(pokemon)}`;const forced=megaAbility(pokemon);if(forced)pokemon.ability=forced;return pokemon;};
